@@ -43,10 +43,6 @@ class OutlookLib:
                     elif match_field == "Body":
                         if msg.Body.find(match) >= 0:
                             messages.append(msg)
-                    #print msg.To
-                    #msg.Attachments
-                        # a = item.Attachments.Item(i)
-                        # a.FileName
                 except:
                     pass
             return messages
