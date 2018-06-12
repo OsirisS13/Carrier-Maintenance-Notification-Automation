@@ -14,3 +14,7 @@ Pull requests for extensions to supported carriers, sources of circuit informati
 
 # NOTE
 This script relies heavily on regex to extract the needed information, and is therefore quite fragile and sensitive to any formatting changes that are made to the notification emails. 
+
+Non-standard modules required are:
+* win32com.client
+* pyodbc
