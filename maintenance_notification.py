@@ -167,6 +167,7 @@ def lookup_circuitID(circuit_id):
 		return {"circuit_description": circuit_description, "circuit_purpose": circuit_purpose}
 	except:
 		print "Error!  Could not get Circuit information from database!"
+		exit()
 		return
 	
 		
@@ -242,12 +243,16 @@ for msg in messages:
 
 #Values needed to create the maintenance calendar event are stored in the dictionary.
 #Here we access a single value in the dictonary and assign it to the relevant variable
-circuit_id = maintenance_values["circuit_id"]
-start_time = maintenance_values["start_time"]
-end_time = maintenance_values["end_time"]
-subject =  maintenance_values["subject"]
-body =  maintenance_values["body"]
-print circuit_id
+try:
+	circuit_id = maintenance_values["circuit_id"]
+	start_time = maintenance_values["start_time"]
+	end_time = maintenance_values["end_time"]
+	subject =  maintenance_values["subject"]
+	body =  maintenance_values["body"]
+	print circuit_id
+except NameError:
+	print "ERROR! Could not find an email with a Maintenance ID matching", maintenance_to_search_for
+	exit()
 #init list where the returned circuit descriptions are stored
 descriptions = ''
 #if circuit id returns as a list (ie more than one result, run lookup circuit function using the circuit id as a loop,  otherwise just assign normally)
