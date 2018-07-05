@@ -234,6 +234,8 @@ for msg in messages:
 			maintenance_values = eunetworks_maintenance()
 		elif sender == "netopsadmin@interoute.com":
 			maintenance_values = interoute_maintenance()
+		elif sender == "netopsadmin@gtt.net":
+			maintenance_values = interoute_maintenance()
 		elif sender == "ncm@teliacompany.com":
 			maintenance_values = telia_maintenance()
 		#move email to appropriate folder, this does not work (probably incorrect folder structure)
