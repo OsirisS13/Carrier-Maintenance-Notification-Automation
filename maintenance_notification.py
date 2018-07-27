@@ -125,25 +125,26 @@ def telia_maintenance():
 	
 	
 def level3_maintenance(maintenance_id):
-	body = msg.Body.encode('utf-8') 
+	body = msg.HTMLbody.encode('utf-8') 
 	subject = msg.Subject
 	#regex here matches everything after the ?<= (inside the brackets) until the end of the line, and then strips any carriage returns from the result
 	#need to put regex in a string as we are using a variable inside it, and cant just build the regex during the search
-	#-1 at the end to match the maint ID with -1 as per email format
-	start_regex_search = '(?<=' + maintenance_id + '-1 )[^to]*'
+	start_regex_search = '(?<=<td class="headerRow">End<\/td><\/tr><tr><td>)[^(]*'
 	start_time = re.search(start_regex_search, body).group(0).rstrip()
 	#build regex string using the start time as the variable, until end of line
-	end_regex_search = '(?<=' + start_time + ' to ).*'
+	end_regex_search = '(?<=\(Greenwich Mean Time\)<\/td><td>)[^(]*'
 	end_time = re.search(end_regex_search, body).group(0).rstrip()
 	#convert start time from string to datetime object, see https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
-	start_time =  datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S %Z')
+	start_time =  datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M %Z')
 	#convert end time from string to datetime object, see url above
-	end_time =  datetime.datetime.strptime(end_time, '%Y-%m-%d %H:%M:%S %Z')
+	end_time =  datetime.datetime.strptime(end_time, '%Y-%m-%d %H:%M %Z')
 	#regex here matches everything after the ?<= (inside the brackets inc spaces) until the next </td>, and then strips any carriage returns from the result
-	#using html body of email.  Need to fill out your customer name here
-	customer_name = ""
-	circuit_regex_search = '(?<=<td>' + customer_name + '</td><td>)[^</td>]*'
+	#using html body of email
+	circuit_regex_search = '(?<=<td>INTERXION</td><td>)[^</td>]*'
 	circuit_id = re.findall(circuit_regex_search, msg.HTMLbody, re.MULTILINE)
+	print circuit_id
+	# circuit_id = circuit_id.group(0).rstrip()
+	# print msg.HTMLbody
 	return{"circuit_id": circuit_id, "start_time": start_time, "end_time": end_time, "subject": subject, "body": body}
 	
 	
