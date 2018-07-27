@@ -139,8 +139,9 @@ def level3_maintenance(maintenance_id):
 	#convert end time from string to datetime object, see url above
 	end_time =  datetime.datetime.strptime(end_time, '%Y-%m-%d %H:%M %Z')
 	#regex here matches everything after the ?<= (inside the brackets inc spaces) until the next </td>, and then strips any carriage returns from the result
-	#using html body of email
-	circuit_regex_search = '(?<=<td>INTERXION</td><td>)[^</td>]*'
+	#using html body of email.  Need to fill out your customer name here
+	customer_name = ""
+	circuit_regex_search = '(?<=<td>' + customer_name + '</td><td>)[^</td>]*'
 	circuit_id = re.findall(circuit_regex_search, msg.HTMLbody, re.MULTILINE)
 	print circuit_id
 	# circuit_id = circuit_id.group(0).rstrip()
