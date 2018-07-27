@@ -146,7 +146,7 @@ def level3_maintenance(maintenance_id):
 	print circuit_id
 	# circuit_id = circuit_id.group(0).rstrip()
 	# print msg.HTMLbody
-	return{"circuit_id": circuit_id, "start_time": start_time, "end_time": end_time, "subject": subject, "body": body}
+	return{"circuit_id": circuit_id, "start_time": start_time, "end_time": end_time, "subject": subject, "body": msg.Body}
 	
 	
 #database lookup, see https://docs.microsoft.com/en-us/sql/connect/python/pyodbc/step-3-proof-of-concept-connecting-to-sql-using-pyodbc?view=sql-server-2017
